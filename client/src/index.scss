@@ -1,0 +1,31 @@
+// Global Settings
+
+* {
+    font-family: sans-serif;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.featured-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 35px; 
+    .card {
+        width: 75%;
+    }
+}
+
+.charity-cards {
+    margin: 50px 314px;
+}
+
+.nav-button {
+    height: 30px;
+    text-align: center; 
+}
+
+
+
