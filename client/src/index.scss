@@ -8,24 +8,43 @@
     text-align: center;
 }
 
+.nav-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+}
+
 .featured-container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 35px; 
     .card {
-        width: 75%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 75%;;
+        margin-top: 10px;
+    }
+    .feature-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        width: auto;
+        height:auto;
     }
 }
 
 .charity-cards {
-    margin: 50px 314px;
+    margin: 50px 314px;  
+    .charity-image{
+        width: auto;
+        height: auto;
+    }
 }
 
-.nav-button {
-    height: 30px;
-    text-align: center; 
-}
 
 
 
