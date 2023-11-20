@@ -1,5 +1,7 @@
 const {Schema, model} =  require('mongoose')
 const {hash,compare} = require('bcrypt')
+const Donations = require('./Donations')
+
 
 const userSchema = new Schema({
     username:{
@@ -24,7 +26,13 @@ const userSchema = new Schema({
         reqired:true,
         minLength: [7, 'password must be longer than 7 characters'],
 
-    }
+    },
+    
+    donations:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Donations'
+    }]
+
 },{
     methods:{
         async validatePass(formPass){

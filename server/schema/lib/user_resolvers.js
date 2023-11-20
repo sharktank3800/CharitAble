@@ -1,6 +1,4 @@
-const User = require("../../models/User");
-
-
+const {User, Donations, Category} = require("../../models");
 const {createToken} = require("../../auth")
 
 
@@ -8,6 +6,12 @@ const user_resolvers = {
     Query: {
       authenticate(_, __, context) {
         return context.user
+      },
+
+      async category(_, args){
+        const {name} = args; //destructure category name passed as arg
+        const donations = await Donations.find({category: name});
+        return donations;
       }
     },
   
@@ -36,8 +40,8 @@ const user_resolvers = {
   
           throw new Error(message);
         }
-      },
-  
+      }, 
+
       async login(_, args, context) {
         const { email, password } = args;
   
@@ -58,6 +62,43 @@ const user_resolvers = {
         });
   
         return user;
+      },
+
+      async categories(_,args){
+        try {
+          const createdCategories = await Category.create(args);
+          return createdCategories
+        } catch (err) {
+          throw new Error(err.message);
+        }
+      },
+
+      async createDonation(_, args, {req,res}){
+        try {
+          const {name, Amount, category} = args;
+          console.log('args',args)
+         
+          // create new donation with converted categoryIds
+          const donation = await Donations.create({
+            name,
+            Amount,
+            category
+            // categoryIds.filter((categoryId) => categoryId !== null),
+            // user: context.user._id //assigning authenticated user ID
+          });
+           // converting category name to correspond with ObjectsIds
+           const category2 = await Category.findOne({name: category});
+           donation.category.push(category2)
+          // const categoryIds = await Promise.all(
+            // category.map(async(categoryName) => {
+              
+            //   return category ? category._id : null;
+            // })
+          // )
+          return donation;
+        } catch (err) {
+          throw new Error(err.message)
+        }
       },
   
       logout(_, __, context) {
