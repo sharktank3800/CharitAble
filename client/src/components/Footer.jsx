@@ -3,10 +3,10 @@ import Navbar from 'react-bootstrap/Navbar';
 
 function ContainerInsideExample() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary"
+    <Navbar expand="lg" className="bg-primary"
     fixed="bottom">
       <Container>
-        <Navbar.Brand href="#">Navbar</Navbar.Brand>
+        <p>&copy; 2023</p>
       </Container>
     </Navbar>
   );

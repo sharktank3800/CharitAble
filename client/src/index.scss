@@ -8,43 +8,92 @@
     text-align: center;
 }
 
-.nav-button {
+.header-logo {
+    display: flex;
+    justify-content: center;
+    @media (min-width: 720px) and (max-width: 1440px) {
+        margin-left: 20vw;
+    }
+}
+
+.header-text {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30px;
+    font-weight: bold;
+    margin-left: 300px;
+    padding-right: 1000px;
+    @media (min-width: 720px) and (max-width: 1440px) {
+        margin-left: 20vw;
+    }
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15px;
+    margin-left: auto;
+.search-button {
+    border-color: #fff;
+    background-color: #000;
+}
+@media (min-width: 720px) and (max-width: 1440px) {
+    margin-left: 20vw;
+}
+}
+
+.links {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+
+.button-bar {
+    display: flex;
+    margin-left: auto;
+>* {
+    margin: 0 2px;
+}
+.links-button {
+    border-color: #fff;
+    background-color: #000;
+}
+}
+@media (min-width: 720px) and (max-width: 1440px) {
+    margin-left: 20vw;
+}
 }
 
 .featured-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 35px; 
+    margin-top: 35px;
+
     .card {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 75%;;
+        width: 75%;
+        ;
         margin-top: 10px;
     }
+
     .feature-image {
         display: flex;
         justify-content: center;
         align-items: center;
         margin: auto;
         width: auto;
-        height:auto;
-    }
-}
-
-.charity-cards {
-    margin: 50px 314px;  
-    .charity-image{
-        width: auto;
         height: auto;
     }
 }
 
+.charity-cards {
+    margin: 50px 314px;
 
-
-
+    .charity-image {
+        width: auto;
+        height: auto;
+    }
+}
