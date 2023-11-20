@@ -5,28 +5,45 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import axios from 'axios'
+import { useState, useEffect } from 'react';
+const initialFormData = {
+  slugs: '',
+ 
+}
+
 
 function Header() {
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get("https://partners.every.org/v0.2/search/pets?apiKey=pk_live_596302b8ccb639ed7710bd6a962a5f50" , {
-        params: {
-          q: "dogs",
-          limit: 5,
-          offset: 0,
-          sort: "relevance",
-          order: "asc",
-          fields: "id,name,description,mission,logo,websiteUrl,category,city,state,zipCode,latitude,longitude,profileImage,profileImageThumbnail"}
-    });
-      const data = response.data;
-      // handle your data here
-      console.log(data);
-    } catch (error) {
-      // handle your error here
-      console.log(error);
-    }
+  const [formData, setFormData ]= useState(initialFormData)
+  const [searchData, setSearchData] = useState(null);
+  // console.log('initial',formData)
+  const handleChange = (e)=> {
+    setFormData({
+      [e.target.name]: e.target.value
+    })
+    console.log(formData)
   }
+  // useEffect(() => {
+    const handleSearch = async (e) => {
+      e.preventDefault()
+      const slugs = formData.slugs;
+      console.log('fomdata', slugs);
+      try {
+        const response = await axios.get(`https://partners.every.org/v0.2/search/${slugs}?apiKey=pk_live_596302b8ccb639ed7710bd6a962a5f50`, {
+          params: {
+            q: "dogs",
+            limit: 5,
+            offset: 0,
+          }
+        });
+        setSearchData(response.data);
+        console.log(response.data)
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
+    // handleSearch();
+  // }, [formData]);
   return (
     <Navbar expand="lg" className="bg-primary">
       <Container fluid>
@@ -46,6 +63,9 @@ function Header() {
           <Form className="d-flex search-bar">
             <Form.Control
               type="search"
+              name="slugs"
+              onChange={handleChange}
+              // value={formData.slugs}
               placeholder="Search for your charity"
               className="me-2"
               aria-label="Search"
