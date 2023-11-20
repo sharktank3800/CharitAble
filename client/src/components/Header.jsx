@@ -5,28 +5,52 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import axios from 'axios'
+import { useState, useEffect } from 'react';
+import { useStore } from '../Store';
+import Cards from './Cards'
+const initialFormData = {
+  slugs: '',
+ 
+}
+
 
 function Header() {
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get("https://partners.every.org/v0.2/search/pets?apiKey=pk_live_596302b8ccb639ed7710bd6a962a5f50" , {
-        params: {
-          q: "dogs",
-          limit: 5,
-          offset: 0,
-          sort: "relevance",
-          order: "asc",
-          fields: "id,name,description,mission,logo,websiteUrl,category,city,state,zipCode,latitude,longitude,profileImage,profileImageThumbnail"}
-    });
-      const data = response.data;
-      // handle your data here
-      console.log(data);
-    } catch (error) {
-      // handle your error here
-      console.log(error);
-    }
+  const [formData, setFormData ]= useState(initialFormData)
+  const {setState} = useStore();
+  // console.log('initial',formData)
+  const handleChange = (e)=> {
+    setFormData({
+      [e.target.name]: e.target.value
+    })
+    console.log(formData)
   }
+  // useEffect(() => {
+    const handleSearch = async (e) => {
+      e.preventDefault()
+      const slugs = formData.slugs;
+      console.log('fomdata', slugs);
+      try {
+        const response = await axios.get(`https://partners.every.org/v0.2/search/${slugs}?apiKey=pk_live_596302b8ccb639ed7710bd6a962a5f50`, {
+          params: {
+            q: "dogs",
+            limit: 5,
+            offset: 0,
+          }
+        });
+        setState((oldState)=>{
+           return{
+            ...oldState,
+            searchContents: response.data.nonprofits 
+          }
+        });
+        console.log('results', response.data.nonprofits )
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
+    // handleSearch();
+  // }, [formData]);
   return (
     <Navbar expand="lg" className="bg-primary">
       <Container fluid>
@@ -42,15 +66,18 @@ function Header() {
           CharitAble</Navbar.Brand>
         </section>
         
-        <div className="search">
+        <div onSubmit={handleSearch}className="search">
           <Form className="d-flex search-bar">
             <Form.Control
               type="search"
+              name="slugs"
+              onChange={handleChange}
+              // value={formData.slugs}
               placeholder="Search for your charity"
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-success" className="search-button" id="searchButton" onClick={handleSearch}>Search</Button>
+            <Button variant="outline-success" className="search-button" id="searchButton" onClick={handleSearch} >Search</Button>
           </Form>
         </div>
 
@@ -58,10 +85,9 @@ function Header() {
           <Nav className="me-auto button-bar">
             <Button variant="outline-success" className="links-button" href="#">Register</Button>
             <Button variant="outline-success" className="links-button" href="#">Login</Button>
-            <Button variant="outline-success" className="links-button" href="#">Donate Here!</Button>
           </Nav>
         </div>
-
+        {/* <Cards handleSearch={handleSearch}/> */}
       </Container>
     </Navbar>
   );

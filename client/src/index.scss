@@ -11,6 +11,7 @@
 .header-logo {
     display: flex;
     justify-content: center;
+
     @media (min-width: 720px) and (max-width: 1440px) {
         margin-left: 20vw;
     }
@@ -23,6 +24,7 @@
     font-weight: bold;
     margin-left: 300px;
     padding-right: 1000px;
+
     @media (min-width: 720px) and (max-width: 1440px) {
         margin-left: 20vw;
     }
@@ -34,13 +36,15 @@
     align-items: center;
     height: 15px;
     margin-left: auto;
-.search-button {
-    border-color: #fff;
-    background-color: #000;
-}
-@media (min-width: 720px) and (max-width: 1440px) {
-    margin-left: 20vw;
-}
+
+    .search-button {
+        border-color: #fff;
+        background-color: #000;
+    }
+
+    @media (min-width: 720px) and (max-width: 1440px) {
+        margin-left: 20vw;
+    }
 }
 
 .links {
@@ -48,20 +52,23 @@
     margin-left: auto;
     margin-right: auto;
 
-.button-bar {
-    display: flex;
-    margin-left: auto;
->* {
-    margin: 0 2px;
-}
-.links-button {
-    border-color: #fff;
-    background-color: #000;
-}
-}
-@media (min-width: 720px) and (max-width: 1440px) {
-    margin-left: 20vw;
-}
+    .button-bar {
+        display: flex;
+        margin-left: auto;
+
+        >* {
+            margin: 0 2px;
+        }
+
+        .links-button {
+            border-color: #fff;
+            background-color: #000;
+        }
+    }
+
+    @media (min-width: 720px) and (max-width: 1440px) {
+        margin-left: 20vw;
+    }
 }
 
 .featured-container {
@@ -91,9 +98,16 @@
 
 .charity-cards {
     margin: 50px 314px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 
-    .charity-image {
-        width: auto;
-        height: auto;
+    >* {
+        margin: 20px 20px;
     }
+}
+
+.charity-image {
+    width: auto;
+    height: auto;
 }
