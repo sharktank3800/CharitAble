@@ -3,7 +3,8 @@ import { createContext, useContext, useState } from 'react'
 const StoreContext = createContext()
 
 const initialState = {
-  user: null
+  user: null,
+  searchContents: []
 }
 
 export function StoreProvider(props) {

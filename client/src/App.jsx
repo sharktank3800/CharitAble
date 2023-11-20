@@ -10,7 +10,7 @@ import Featured from './components/Featured'
 import Card from './components/Cards'
 import Footer from './components/Footer'
 
-import { useStore } from './pages/Store'
+import { useStore } from './Store'
 
 
 const AUTHENTICATE = gql`

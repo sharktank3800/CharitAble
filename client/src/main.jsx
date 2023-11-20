@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.scss'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { StoreProvider } from './pages/Store.jsx'
+import { StoreProvider } from './Store.jsx'
 
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/client'
 

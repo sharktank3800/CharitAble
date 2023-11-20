@@ -6,6 +6,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import axios from 'axios'
 import { useState, useEffect } from 'react';
+import { useStore } from '../Store';
+import Cards from './Cards'
 const initialFormData = {
   slugs: '',
  
@@ -14,7 +16,7 @@ const initialFormData = {
 
 function Header() {
   const [formData, setFormData ]= useState(initialFormData)
-  const [searchData, setSearchData] = useState(null);
+  const {setState} = useStore();
   // console.log('initial',formData)
   const handleChange = (e)=> {
     setFormData({
@@ -35,8 +37,13 @@ function Header() {
             offset: 0,
           }
         });
-        setSearchData(response.data);
-        console.log(response.data)
+        setState((oldState)=>{
+           return{
+            ...oldState,
+            searchContents: response.data.nonprofits 
+          }
+        });
+        console.log('results', response.data.nonprofits )
       } catch (error) {
         console.error(error);
       }
@@ -59,7 +66,7 @@ function Header() {
           CharitAble</Navbar.Brand>
         </section>
         
-        <div className="search">
+        <div onSubmit={handleSearch}className="search">
           <Form className="d-flex search-bar">
             <Form.Control
               type="search"
@@ -70,7 +77,7 @@ function Header() {
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-success" className="search-button" id="searchButton" onClick={handleSearch}>Search</Button>
+            <Button variant="outline-success" className="search-button" id="searchButton" onClick={handleSearch} >Search</Button>
           </Form>
         </div>
 
@@ -78,10 +85,9 @@ function Header() {
           <Nav className="me-auto button-bar">
             <Button variant="outline-success" className="links-button" href="#">Register</Button>
             <Button variant="outline-success" className="links-button" href="#">Login</Button>
-            <Button variant="outline-success" className="links-button" href="#">Donate Here!</Button>
           </Nav>
         </div>
-
+        {/* <Cards handleSearch={handleSearch}/> */}
       </Container>
     </Navbar>
   );
