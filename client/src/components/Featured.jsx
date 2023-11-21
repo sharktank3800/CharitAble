@@ -4,7 +4,9 @@ import DonateForm from '../pages/DonateForm';
 import { useEffect, useState } from 'react';
 import { useStore } from '../Store';
 import axios from 'axios';
+// import { NavLink } from 'react-router-dom';
 import { NavLink } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function Featured({ data }) {
   const { featuredContents, setState } = useStore();
@@ -35,7 +37,7 @@ function Featured({ data }) {
         });
 
         const filteredData = response.data.nonprofits.map(item => slugs.includes(item.slug));
-        console.log(response.data.nonprofits);
+        // console.log(response.data.nonprofits);
         // Update the state with the filtered data
       } catch (error) {
         console.error('Error in handleSearch:', error);
@@ -44,33 +46,35 @@ function Featured({ data }) {
 
     handleSearch();
   }, [setState])
-    // const id = setInterval(handleSearch, 3000000);
-    // setTimerId(id);
+  // const id = setInterval(handleSearch, 3000000);
+  // setTimerId(id);
 
-    // return () => {
-    //   if (timerId) {
-    //     // handleSearch()
-    //     clearInterval(timerId)
-    //   };
-    // }
-    // }, [setState, timerId])
+  // return () => {
+  //   if (timerId) {
+  //     // handleSearch()
+  //     clearInterval(timerId)
+  //   };
+  // }
+  // }, [setState, timerId])
 
   return (
-    <div className="featured-container">
-      {console.log(featuredContents)}
+    <div className="featured-container ">
+      {/* {console.log(featuredContents)} */}
       {featuredContents.slice(0, 5).map((item, index) => (
-        <Card key={index} style={{ width: '25rem' }} className="card-body">
+        <Card key={index} style={{ width: '25rem' }} className="card-body popa">
 
           <Card.Body>
-            <Card.Img variant="top" src={item.coverImageUrl} className="feature-image" />
-            <Card.Title className='featured-title'>{item.name}</Card.Title>
-            <Card.Text>{item.description}</Card.Text>
+              <Card.Img variant="top" src={item.coverImageUrl} className="feature-image" />
+            <div className="card_body_container">
+              <Card.Title className='featured-title'>{item.name}</Card.Title>
+              <Card.Text>{item.description}</Card.Text>
 
 
-            <div className="button-container">
-              {/* <NavLink path='/donateform' element={<DonateForm/>} ><Button variant="primary" className="feature-button">Donate Here!</Button></NavLink> */}
-              <NavLink href='/donateform'> <Button variant="primary" >Donate Here!</Button></NavLink>
-              <NavLink href={item.websiteUrl} target="_blank"><Button variant="primary">Learn more</Button></NavLink>
+              <div className="button-container">
+                {/* <NavLink path='/donateform' element={<DonateForm/>} ><Button variant="primary" className="feature-button">Donate Here!</Button></NavLink> */}
+                <Link to='/donateform'> <Button variant="primary" >Donate Here!</Button></Link>
+                <NavLink href={item.websiteUrl || '/teapot' || 'https://colorlib.com/etc/404/colorlib-error-404-1/'} target="_blank"><Button variant="primary">Learn more</Button></NavLink>
+              </div>
             </div>
           </Card.Body>
         </Card>

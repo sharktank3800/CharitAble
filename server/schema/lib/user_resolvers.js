@@ -61,35 +61,24 @@ const user_resolvers = {
           httpOnly: true,
           secure: process.env.PORT ? true : false
         });
-  
+        console.log(user)
         return user;
       },
 
-      async categories(_,args){
+      async createDonation(_, args){
         try {
-          const createdCategories = await Category.create(args);
-          return createdCategories
-        } catch (err) {
-          throw new Error(err.message);
-        }
-      },
-
-      async createDonation(_, args, {req,res}){
-        try {
-          const {name, Amount, category} = args;
           console.log('args',args)
-         
           // create new donation with converted categoryIds
-          const donation = await Donations.create({
-            name,
-            Amount,
-            category
+          const donation = await Donations.create(args);
+          
             // categoryIds.filter((categoryId) => categoryId !== null),
             // user: context.user._id //assigning authenticated user ID
-          });
-           // converting category name to correspond with ObjectsIds
-           const category2 = await Category.findOne({name: category});
-           donation.category.push(category2)
+          // converting category name to correspond with ObjectsId
+          
+          const user = await User.findById(args.id)
+          // console.log(user)
+          user.donations.push(donation._id)
+          user.save()
           // const categoryIds = await Promise.all(
             // category.map(async(categoryName) => {
               

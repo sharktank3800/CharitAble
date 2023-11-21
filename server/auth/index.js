@@ -44,7 +44,7 @@ async function authenticate({req, res}){
     } catch (error) {
         // if token verification fails due to an invalid token res with a 401 status
         // message inidicating that the token is invalid
-        console.log('hi')
+        // console.log('hi')
         return {res: res}
     }
 }
