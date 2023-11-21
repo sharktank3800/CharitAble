@@ -8,65 +8,69 @@ import axios from 'axios'
 import { useState, useEffect } from 'react';
 import { useStore } from '../Store';
 import Cards from './Cards'
+import { NavLink, Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 const initialFormData = {
   slugs: '',
- 
+
 }
 
 
 function Header() {
-  const [formData, setFormData ]= useState(initialFormData)
-  const {setState} = useStore();
+  const [formData, setFormData] = useState(initialFormData)
+  const { setState } = useStore();
   // console.log('initial',formData)
-  const handleChange = (e)=> {
+  const handleChange = (e) => {
     setFormData({
       [e.target.name]: e.target.value
     })
     console.log(formData)
   }
   // useEffect(() => {
-    const handleSearch = async (e) => {
-      e.preventDefault()
-      const slugs = formData.slugs;
-      console.log('fomdata', slugs);
-      try {
-        const response = await axios.get(`https://partners.every.org/v0.2/search/${slugs}?apiKey=pk_live_596302b8ccb639ed7710bd6a962a5f50`, {
-          params: {
-            q: "dogs",
-            limit: 5,
-            offset: 0,
-          }
-        });
-        setState((oldState)=>{
-           return{
-            ...oldState,
-            searchContents: response.data.nonprofits 
-          }
-        });
-        console.log('results', response.data.nonprofits )
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const handleSearch = async (e) => {
+    e.preventDefault()
+    const slugs = formData.slugs;
+    console.log('fomdata', slugs);
+    try {
+      const response = await axios.get(`https://partners.every.org/v0.2/search/${slugs}?apiKey=pk_live_596302b8ccb639ed7710bd6a962a5f50`, {
+        params: {
+          q: "dogs",
+          limit: 5,
+          offset: 0,
+        }
+      });
+      setState((oldState) => {
+        return {
+          ...oldState,
+          searchContents: response.data.nonprofits
+        }
+      });
+      console.log('results', response.data.nonprofits)
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    // handleSearch();
+  // handleSearch();
   // }, [formData]);
   return (
-    <Navbar expand="lg" className="bg-primary">
+    <Navbar expand="lg" className="bg-primary header">
       <Container fluid>
         <section>
-      
-        <Navbar.Brand href="#" className="header-text">
-        <img 
-          src="vite.svg"
-          width="30"
-          height="30"
-          className="d-inline-block align-top header-logo"
-          alt="somelogo"/>
-          CharitAble</Navbar.Brand>
+
+          <NavLink to="/">
+            <Navbar.Brand className="header-logo">
+              <img
+                src="./image.png"
+                width="200"
+                height="60"
+                className="d-inline-block align-top"
+              />
+            </Navbar.Brand>
+          </NavLink>
         </section>
-        
-        <div onSubmit={handleSearch}className="search">
+
+        <div onSubmit={handleSearch} className="search">
           <Form className="d-flex search-bar">
             <Form.Control
               type="search"
@@ -83,14 +87,16 @@ function Header() {
 
         <div className="links">
           <Nav className="me-auto button-bar">
-            <Button variant="outline-success" className="links-button" href="#">Register</Button>
-            <Button variant="outline-success" className="links-button" href="#">Login</Button>
+            <NavLink to="/register"><Button variant="outline-success" className="links-button" >Register</Button></NavLink>
+            <NavLink to="/dashboard"> <Button variant="outline-success" className="links-button" >Dashboard</Button></NavLink>
+            <NavLink to="/login"> <Button variant="outline-success" className="links-button" >Login</Button></NavLink>
+            <NavLink to="/login"> <Button variant="outline-success" className="links-button" >Logout</Button></NavLink>
           </Nav>
         </div>
         {/* <Cards handleSearch={handleSearch}/> */}
       </Container>
     </Navbar>
   );
-  }
+}
 
 export default Header;

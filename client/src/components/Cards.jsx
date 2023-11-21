@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import axios from 'axios';
 import { useStore } from '../Store';
 import NavLink from 'react-bootstrap/esm/NavLink';
+import DonateForm from '../pages/DonateForm';
 import {Search} from './Search'
 
 function Cards() {
@@ -16,7 +17,7 @@ function Cards() {
 
   useEffect(() => {
     const handleSearch = async () => {
-      const slugs = ['dog', 'cat', 'fish', 'health', 'sanctuary', 'hostel']
+      const slugs = ['dog', 'cat', 'fish', 'health', 'sanctuary', 'hostel','oceans', 'nato']
       const slug = slugs[Math.floor(Math.random()* slugs.length)]
       try {
         const response = await axios.get(`https://partners.every.org/v0.2/search/${slug}?apiKey=pk_live_596302b8ccb639ed7710bd6a962a5f50`, {
@@ -54,8 +55,10 @@ function Cards() {
             <Card.Text>
               {item.description}
             </Card.Text>
-            <Button variant="primary">Donate Here!</Button>
-            <NavLink href={item.websiteUrl} target="_blank"><Button variant="primary">learn more</Button></NavLink>
+            {/* <NavLink path= element={<DonateForm />} ><Button variant= >Donate Here!</Button></NavLink> */}
+            <NavLink href='/donateform'> <Button variant="primary" >Donate Here!</Button></NavLink>
+            <NavLink href={item.websiteUrl} target="_blank"><Button variant="primary">Learn more</Button></NavLink>
+
           </Card.Body>
         </Card>
       )) : <p>use the search feature to find results</p>}

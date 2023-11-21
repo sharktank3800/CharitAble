@@ -43,6 +43,7 @@ const user_resolvers = {
       }, 
 
       async login(_, args, context) {
+        console.log(args)
         const { email, password } = args;
   
         const user = await User.findOne({ email }).populate();

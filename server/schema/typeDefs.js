@@ -23,6 +23,7 @@ type User {
     username: String
     _id: ID
     email: String
+    password: String
     createdAt: String
     updatedAt: String
     donations: [Donations]

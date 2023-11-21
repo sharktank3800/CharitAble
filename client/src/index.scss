@@ -8,26 +8,19 @@
     text-align: center;
 }
 
-.header-logo {
-    display: flex;
-    justify-content: center;
-
-    @media (min-width: 720px) and (max-width: 1440px) {
-        margin-left: 20vw;
-    }
+.header {
+    height: 60px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left;
 }
 
-.header-text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    margin-left: 300px;
-    padding-right: 1000px;
-
-    @media (min-width: 720px) and (max-width: 1440px) {
-        margin-left: 20vw;
-    }
+.header-logo {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    margin-left: 425px;
+    margin-right: 725px;
 }
 
 .search {
@@ -73,34 +66,36 @@
 
 .featured-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    justify-items: center;
     margin-top: 35px;
-
-    .card {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 75%;
-        ;
-        margin-top: 10px;
-    }
-
-    .feature-image {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: auto;
-        width: auto;
-        height: auto;
-    }
 }
 
-.charity-cards {
-    margin: 50px 314px;
+.card-body {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-between;
+}
+
+.feature-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    justify-items: stretch;
+    gap: 20px;
+}
+
+
+.charity-cards {
+    display: flex;
+    flex: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 
     >* {
         margin: 20px 20px;
