@@ -3,20 +3,18 @@ const gql = String.raw;
 
 const typeDefs = gql`
 
-type Category{
-    _id: ID
-    name: String
-}
+
 
 type Donations{
     _id: ID
-    name: String!
-    Amount: Int
-    category: [String]  #  to accept an array of strings 
+    name: String
+    amount: Int
+    categories: [String]  #  to accept an array of strings 
     Date: String
     description: String
     image: String
-    user: User
+    username:String
+    
 }
 
 type User {
@@ -37,11 +35,12 @@ type Query{
 type Mutation{
     register(email: String!, username: String!, password:String!):User
     login(email: String!, password:String!):User
-    categories(name: String): [Category]
     createDonation(
+        id:ID,
         name: String!, 
-        Amount: Int!, 
-        category: [String]):Donations
+        amount: Int!, 
+        username:String!,
+        categories: [String]):Donations
     logout: String
 }
 `

@@ -6,7 +6,8 @@ const initialState = {
   user: null,
   searchContents: [],
   featuredContents:[],
-  userContent: []
+  userContent: [],
+  itemstore:[]
 }
 
 export function StoreProvider(props) {

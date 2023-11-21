@@ -1,5 +1,5 @@
 const {Schema, model} =  require('mongoose')
-const Category = require('./Category')
+
 
 
 const donationSchema =  new Schema({
@@ -14,16 +14,16 @@ const donationSchema =  new Schema({
         required: true
     },
 
-    Amount:{
+    amount:{
         type: Number,
         required: true,
         price: {
             min: 0.99
         }
     },
-    category:[{
-        type: Schema.Types.Mixed,
-        Category
+    categories:[{
+        type: String
+        
     }],
 
     Date: {

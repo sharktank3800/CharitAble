@@ -18,7 +18,7 @@ const initialFormData = {
 
 function Header() {
   const [formData, setFormData] = useState(initialFormData)
-  const { setState } = useStore();
+  const { user,setState } = useStore();
   // console.log('initial',formData)
   const handleChange = (e) => {
     setFormData({
@@ -61,7 +61,7 @@ function Header() {
           <NavLink to="/">
             <Navbar.Brand className="header-logo">
               <img
-                src="./image.png"
+                src="./logo_gagogo.svg"
                 width="200"
                 height="60"
                 className="d-inline-block align-top"
@@ -87,10 +87,14 @@ function Header() {
 
         <div className="links">
           <Nav className="me-auto button-bar">
-            <NavLink to="/register"><Button variant="outline-success" className="links-button" >Register</Button></NavLink>
+            {user ? (<>
             <NavLink to="/dashboard"> <Button variant="outline-success" className="links-button" >Dashboard</Button></NavLink>
-            <NavLink to="/login"> <Button variant="outline-success" className="links-button" >Login</Button></NavLink>
+            
             <NavLink to="/login"> <Button variant="outline-success" className="links-button" >Logout</Button></NavLink>
+            </>):(<>
+            <NavLink to="/register"><Button variant="outline-success" className="links-button" >Register</Button></NavLink>
+            <NavLink to="/login"> <Button variant="outline-success" className="links-button" >Login</Button></NavLink>
+            </>)}
           </Nav>
         </div>
         {/* <Cards handleSearch={handleSearch}/> */}

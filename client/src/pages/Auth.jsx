@@ -31,6 +31,7 @@ mutation LoginUser($email: String!, $password: String!){
         email
         password
         username
+        _id
     }
 }
 `

@@ -53,6 +53,7 @@ function App() {
           <Route path='/dashboard' element={<Dashboard/>} />
           <Route path='/donateform' element={<DonateForm/>}></Route>
           <Route path='/login' element={<Auth isLogin={true}/>}/>
+          
           <Route path='/register' element={<Auth isLogin={false}/>}/>
         </Routes>
       
