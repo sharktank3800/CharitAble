@@ -4,7 +4,9 @@ const StoreContext = createContext()
 
 const initialState = {
   user: null,
-  searchContents: []
+  searchContents: [],
+  featuredContents:[],
+  userContent: []
 }
 
 export function StoreProvider(props) {
