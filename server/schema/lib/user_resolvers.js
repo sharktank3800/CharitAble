@@ -46,7 +46,7 @@ const user_resolvers = {
         console.log(args)
         const { email, password } = args;
   
-        const user = await User.findOne({ email }).populate();
+        const user = await User.findOne({ email });
   
         if (!user) throw new Error('User with that email address not found.');
   
@@ -62,7 +62,7 @@ const user_resolvers = {
           secure: process.env.PORT ? true : false
         });
         console.log(user)
-        return user;
+        return {...user._doc, token};
       },
 
       async createDonation(_, args){
@@ -91,11 +91,11 @@ const user_resolvers = {
         }
       },
   
-      logout(_, __, context) {
-        context.res.clearCookie('token')
-  
-        return 'User logged out successfully!'
+      logout: async (_, __, context) => {
+        context.res.clearCookie('token');
+        return true;
       },
+      
       async showDonations(_, args){
         console.log('shoargs',args)
         const user = await User.findById(args.id).populate('donations')

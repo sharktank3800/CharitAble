@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import viteLogo from '/vite.svg'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/esm/Container';
 import { useQuery, gql } from '@apollo/client';
@@ -14,8 +13,10 @@ import Footer from './components/Footer'
 import Auth from './pages/Auth'
 
 
+
 import { useStore } from './Store'
 import Landing from './pages/Landing';
+
 
 
 const AUTHENTICATE = gql`
@@ -31,17 +32,18 @@ query{
 function App() {
     const {setState} = useStore()
     const {loading, error, data:userData} = useQuery(AUTHENTICATE)
+
     
-    useEffect(()=>{
-      
-      if(userData){
-        setState(oldState =>({
+    useEffect(() => {
+      const storedToken = localStorage.getItem('token');
+      if (storedToken) {
+        // If a token exists in localStorage, update the state with the token
+        setState((oldState) => ({
           ...oldState,
-          user: userData.authenticate
-        }))
-        console.log(userData.user)
+          token: storedToken,
+        }));
       }
-    },[userData, setState])
+    }, [setState]);
 
   return (
     <>
@@ -51,9 +53,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing/>} />
           <Route path='/dashboard' element={<Dashboard/>} />
-          <Route path='/donateform' element={<DonateForm/>}></Route>
+          <Route path='/donateform' element={<DonateForm/>} /> 
           <Route path='/login' element={<Auth isLogin={true}/>}/>
-          
           <Route path='/register' element={<Auth isLogin={false}/>}/>
         </Routes>
       

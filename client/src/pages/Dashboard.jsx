@@ -15,6 +15,7 @@ mutation ShowDonations($id: ID){
             amount
             _id
             categories
+            image
           }
     }
 }
@@ -42,31 +43,33 @@ function Dashboard(){
         
                 const {data} = await showDonation() 
                 const donationObj = data.showDonations.donations
-                console.log("userdata",donationObj)
+                console.log("userdata",data.showDonations.donations)
                 // setNewDonationData({
                 //     ...newDonationData,
                 //     [data.name]: data.value
                 //   });
                 //   console.log("finitemstore",newDonationData)
-            //     setState((oldState) => {
-            //         return {
-            //           ...oldState,
-            //           itemstore:donationObj
-            //         }
-            //       });
+                setState((oldState) => {
+                    return {
+                      ...oldState,
+                      itemstore:donationObj
+                    }
+                  });
             }
             showdonations()
         },[])
     }
     // showDonation()
     // 
-    
+    console.log(itemstore);
     return (
         <div>
             {user ? (
                 <>
                 <header className="text-center">Welcome, {user.username}</header>
-                <DashboardCards donationObj={donationObj} />
+
+                <DashboardCards  donationObj={itemstore} />
+               
                 </>
             ) : (
                 <>

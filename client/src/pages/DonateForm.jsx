@@ -14,8 +14,8 @@ const InitialFormData = {
 };
 
 const DONATION = gql`
-  mutation Donations($name: String!, $amount: Int!, $username: String!,$id: ID, $categories: [String]) {
-    createDonation(name: $name, amount: $amount, username: $username, id: $id, categories: $categories) {
+  mutation Donations($name: String!, $amount: Int!, $username: String!,$id: ID, $categories: [String], $image: String) {
+    createDonation(name: $name, amount: $amount, username: $username, id: $id, categories: $categories, image: $image) {
       _id
       name
       amount
@@ -31,6 +31,7 @@ function DonateForm() {
   const location = useLocation()
   const itemname = location.state?.name
   const [names, setName] = useState('');
+  const [pic, setPic] = useState('');
   const [donationData, setDonationData] = useState(InitialFormData);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -40,20 +41,24 @@ function DonateForm() {
       navigate('/login', {state: {from: location.pathname}})
     }
     const searchParams = new URLSearchParams(location.search);
+    // const newsearchParams = new URLSearchParams(location.test);
     const nameParam = searchParams.get('name');
+    const picParam = searchParams.get('pic');
     setName(nameParam);
+    setPic(picParam);
   }, [user, navigate, location.pathname]);
   // console.log(location.search.replace("?name=", " ").replace('%20'," ").replace('%20'," ").replace('%20'," "))
   const showlocation =location.search.replace("?name=", " ").replace('%20'," ").replace('%20'," ").replace('%20'," ")
-  console.log(showlocation);
+  console.log(names);
   
   const [makeDonation] = useMutation(DONATION, {
     variables: {
       id: user ? user._id : null,
-      name: showlocation,
+      name: names,
       amount:parseFloat( donationData.amount),
       username: user ? user.username : null,
-      categories: donationData.categories
+      categories: donationData.categories,
+      image : pic
     },
   });
 
@@ -104,7 +109,9 @@ function DonateForm() {
 
   return (
     <>
+    <p>{pic}</p>
     {user ? (
+      
     <Form onSubmit={handleSubmit}>
       
       <Form.Group controlId="formBasicAmount">

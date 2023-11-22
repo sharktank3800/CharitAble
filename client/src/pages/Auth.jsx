@@ -34,80 +34,54 @@ mutation LoginUser($email: String!, $password: String!){
         password
         username
         _id
+        token
     }
 }
 `
 
 function Auth({ isLogin }) {
-  // console.log(isLogin)
-  const { setState } = useStore()
+  const { setState } = useStore();
   const [formdata, setFormData] = useState(InitalFormData);
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('');
   const [authenticateUser] = useMutation(isLogin ? LOGIN_USER : REGISTER_USER, {
     variables: formdata,
     onCompleted: (data) => {
-      console.log('mutationdata', data);
+      handleAuthSuccess(data);
     }
-  })
+  });
 
-
+  const handleAuthSuccess = (data) => {
+    console.log('authdata',data)
+    const resolverName = isLogin ? 'login' : 'register';
+    setState(oldState => ({
+      ...oldState,
+      user: data[resolverName],
+      token: data[resolverName]?.token || ''
+    }));
+    localStorage.setItem('token', data[resolverName]?.token || ''); // Storing the token in local storage
+    navigate('/');
+  };
 
   const handleChange = (e) => {
     setFormData({
       ...formdata,
       [e.target.name]: e.target.value
-    })
-    // console.log(formdata)
-  }
-
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-
-    console.log(formdata)
-
     try {
-
-
-      const resolverName = isLogin ? 'login' : 'register'
-      const { data } = await authenticateUser()
-      console.log('Data:', data);
-      setFormData({ ...InitalFormData })
-      if (isLogin) {
-        // Handle successful login
-        setState(oldState => ({
-          ...oldState,
-          user: data[resolverName],
-        }))
-        console.log('Logged in:', data.login);
-        navigate('/')
-      } else {
-        // Handle successful registration
-        setState(oldState => ({
-          ...oldState,
-          user: data[resolverName],
-        }))
-        setErrorMessage('')
-        navigate('/')
-        console.log('Registered:', data.register);
-      }
-
-      //   updates state after auth
-      setState((oldState) => ({
-        ...oldState,
-        user: data[isLogin ? 'login' : 'register'],
-      }));
-
-      // Redirect or handle successful login/registration
-      navigate('/')
+      const { data } = await authenticateUser();
+      console.log('authdata',data)
+      setFormData({ ...InitalFormData });
+      handleAuthSuccess(data);
     } catch (error) {
       console.error('Error:', error.message);
-      setErrorMessage(error.message)
+      setErrorMessage(error.message);
     }
   };
-
 
 
 
