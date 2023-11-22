@@ -10,7 +10,7 @@ function DashboardCards( {donationObj}) {
           {donationObj.map((donation, index) => (
             <div className='dashboard-cards' key={index}>
               <Card style={{ width: '25rem' }}>
-                <Card.Img variant="top" className="dahsboard-image" src={donation.image} />
+                <Card.Img variant="top" className="dahsboard-image" src={donation.image || 'logo_gagogo.svg' || 'https://picsum.photos/300/300'} />
                 <Card.Body>
                   <Card.Title>{donation.name}</Card.Title>
                   <Card.Text>

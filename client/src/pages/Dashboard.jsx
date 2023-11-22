@@ -66,7 +66,7 @@ function Dashboard(){
         <div>
             {user ? (
                 <>
-                <header className="text-center">Welcome, {user.username}</header>
+                <header className="text-center display-4 pt-4 " >Welcome, {user.username}</header>
 
                 <DashboardCards  donationObj={itemstore} />
                
