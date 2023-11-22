@@ -109,12 +109,12 @@ function DonateForm() {
 
   return (
     <>
-    <p>{pic}</p>
+    
     {user ? (
       
+      <div className="text-center form-group" >
     <Form onSubmit={handleSubmit}>
-      
-      <Form.Group controlId="formBasicAmount">
+      <Form.Group controlId="formBasicAmount" style={{padding: "10px 0"}}>
         <Form.Label>Amount</Form.Label>
         <Form.Control
           type="text"
@@ -125,9 +125,10 @@ function DonateForm() {
         />
       </Form.Group>
 
-      <Form.Group controlId="formBasicCategory">
+      <Form.Group controlId="formBasicCategory" style={{padding: "10px 0"}}>
         <Form.Label>Category</Form.Label>
         <Form.Control
+          style={{width:"400px"}}
           type="text"
           placeholder="Enter donation categories seperated by commas"
           name="categories"
@@ -136,10 +137,11 @@ function DonateForm() {
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit" disabled={loading}>
+      <Button variant="primary" type="submit" disabled={loading} style={{margin: "10px 0"}}>
         {loading ? 'Donating...' : 'Donate'}
       </Button>
     </Form>
+    </div>
     ):(
       <p>Please <Link to='/login' >Log In</Link> or <Link to='/register'>Register</Link> to Access the Dashboard</p>
     )}
