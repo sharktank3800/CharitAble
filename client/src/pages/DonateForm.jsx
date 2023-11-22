@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { useStore } from "../Store";
+import { useState,useEffect  } from "react";
+import { useStore} from "../Store";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { ApolloClient, gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const InitialFormData = {
   id:'',
@@ -27,16 +28,31 @@ const DONATION = gql`
 function DonateForm() {
   const { user } = useStore();  //accessing info from the global store
   const navigate = useNavigate();
+  const location = useLocation()
+  const itemname = location.state?.name
+  const [names, setName] = useState('');
   const [donationData, setDonationData] = useState(InitialFormData);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  // console.log(user);
+
+  useEffect(() => {
+    if(!user){
+      navigate('/login', {state: {from: location.pathname}})
+    }
+    const searchParams = new URLSearchParams(location.search);
+    const nameParam = searchParams.get('name');
+    setName(nameParam);
+  }, [user, navigate, location.pathname]);
+  // console.log(location.search.replace("?name=", " ").replace('%20'," ").replace('%20'," ").replace('%20'," "))
+  const showlocation =location.search.replace("?name=", " ").replace('%20'," ").replace('%20'," ").replace('%20'," ")
+  console.log(showlocation);
+  
   const [makeDonation] = useMutation(DONATION, {
     variables: {
-      id: user._id,
-      name: 'defaultname',
+      id: user ? user._id : null,
+      name: showlocation,
       amount:parseFloat( donationData.amount),
-      username: user.username,
+      username: user ? user.username : null,
       categories: donationData.categories
     },
   });
@@ -87,7 +103,10 @@ function DonateForm() {
   };
 
   return (
+    <>
+    {user ? (
     <Form onSubmit={handleSubmit}>
+      
       <Form.Group controlId="formBasicAmount">
         <Form.Label>Amount</Form.Label>
         <Form.Control
@@ -114,6 +133,11 @@ function DonateForm() {
         {loading ? 'Donating...' : 'Donate'}
       </Button>
     </Form>
+    ):(
+      <p>Please <Link to='/login' >Log In</Link> or <Link to='/register'>Register</Link> to Access the Dashboard</p>
+    )}
+</>
+    
   );
 }
 

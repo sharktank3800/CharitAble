@@ -78,7 +78,7 @@ const user_resolvers = {
           const user = await User.findById(args.id)
           // console.log(user)
           user.donations.push(donation._id)
-          user.save()
+          await user.save()
           // const categoryIds = await Promise.all(
             // category.map(async(categoryName) => {
               
@@ -95,6 +95,13 @@ const user_resolvers = {
         context.res.clearCookie('token')
   
         return 'User logged out successfully!'
+      },
+      async showDonations(_, args){
+        console.log('shoargs',args)
+        const user = await User.findById(args.id).populate('donations')
+        console.log('showuser',user)
+
+        return user
       }
     }
   }

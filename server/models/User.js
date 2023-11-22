@@ -11,7 +11,7 @@ const userSchema = new Schema({
     email:{
         type: String,
         unique:true,
-        reqired:true,
+        required:true,
         validate:{
             validator(val){
                 return  /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(val)
@@ -23,7 +23,7 @@ const userSchema = new Schema({
     },
     password:{
         type:String,
-        reqired:true,
+        required:true,
         minLength: [7, 'password must be longer than 7 characters'],
 
     },

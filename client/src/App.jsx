@@ -37,11 +37,11 @@ function App() {
       if(userData){
         setState(oldState =>({
           ...oldState,
-          user:userData.authenticate
+          user: userData.authenticate
         }))
         console.log(userData.user)
       }
-    },[userData])
+    },[userData, setState])
 
   return (
     <>

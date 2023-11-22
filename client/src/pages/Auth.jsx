@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation , gql } from "@apollo/client";
+import { useMutation, gql } from "@apollo/client";
 
 import Button from "react-bootstrap/esm/Button";
 import Form from 'react-bootstrap/Form'
@@ -8,11 +8,13 @@ import { FormLabel } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useStore } from "../Store";
 
+import Featured from "../components/Featured";
+
 
 const InitalFormData = {
-    email: '',
-    password: '',
-    username: ''
+  email: '',
+  password: '',
+  username: ''
 }
 
 const REGISTER_USER = gql`
@@ -36,30 +38,30 @@ mutation LoginUser($email: String!, $password: String!){
 }
 `
 
-function Auth({isLogin}){
-    console.log(isLogin)
-    const {setState} = useStore()
-    const [formdata,setFormData] = useState(InitalFormData);
-    const navigate = useNavigate();
-    const [errorMessage, setErrorMessage] = useState('')
-    const [authenticateUser] = useMutation(isLogin ? LOGIN_USER : REGISTER_USER,{
-        variables:formdata,
-        onCompleted: (data) => {
-            console.log('mutationdata',data);
-          }
-    })
-
-
-
-    const handleChange = (e) => {
-        setFormData({
-            ...formdata,
-            [e.target.name]: e.target.value
-        })
-        console.log(formdata)
+function Auth({ isLogin }) {
+  // console.log(isLogin)
+  const { setState } = useStore()
+  const [formdata, setFormData] = useState(InitalFormData);
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('')
+  const [authenticateUser] = useMutation(isLogin ? LOGIN_USER : REGISTER_USER, {
+    variables: formdata,
+    onCompleted: (data) => {
+      console.log('mutationdata', data);
     }
+  })
 
-    
+
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formdata,
+      [e.target.name]: e.target.value
+    })
+    // console.log(formdata)
+  }
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -67,32 +69,32 @@ function Auth({isLogin}){
     console.log(formdata)
 
     try {
-       
 
-        const resolverName = isLogin ? 'login' : 'register'
-      const { data} = await authenticateUser()
+
+      const resolverName = isLogin ? 'login' : 'register'
+      const { data } = await authenticateUser()
       console.log('Data:', data);
-      setFormData({...InitalFormData})
+      setFormData({ ...InitalFormData })
       if (isLogin) {
         // Handle successful login
         setState(oldState => ({
-            ...oldState,
-            user: data[resolverName],
+          ...oldState,
+          user: data[resolverName],
         }))
         console.log('Logged in:', data.login);
         navigate('/')
       } else {
         // Handle successful registration
         setState(oldState => ({
-            ...oldState,
-            user: data[resolverName],
+          ...oldState,
+          user: data[resolverName],
         }))
         setErrorMessage('')
         navigate('/')
         console.log('Registered:', data.register);
       }
-      
-        //   updates state after auth
+
+      //   updates state after auth
       setState((oldState) => ({
         ...oldState,
         user: data[isLogin ? 'login' : 'register'],
@@ -110,49 +112,51 @@ function Auth({isLogin}){
 
 
 
-    return ( 
-        <Form onSubmit={handleSubmit}>
-            
-             {!isLogin && <Form.Group controlId="formBasicUsername">
-                <FormLabel> Username</FormLabel>
-            <Form.Control
+  return (
+    <>
+    <Featured /> 
+    <Form onSubmit={handleSubmit}>
+      <div className="form-group">
+        {!isLogin && <Form.Group controlId="formBasicUsername">
+          <FormLabel></FormLabel>
+          <Form.Control
             type="text"
             name="username"
             value={formdata.username}
             onChange={handleChange}
-            placeholder="Enter email"
-            />
-            </Form.Group>}
+            placeholder="Pick your Username"
+          />
+        </Form.Group>}
 
-            <Form.Group controlId="formBasicUsername">
-                <FormLabel> Email</FormLabel>
-            <Form.Control
+        <Form.Group controlId="formBasicUsername">
+          <FormLabel></FormLabel>
+          <Form.Control
             type="email"
             name="email"
             value={formdata.email}
             onChange={handleChange}
             placeholder="Enter email"
-            />
-            </Form.Group>
+          />
+        </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
-                <FormLabel> Password</FormLabel>
-            <Form.Control
+        <Form.Group controlId="formBasicPassword">
+          <FormLabel></FormLabel>
+          <Form.Control
             type="password"
             name="password"
             value={formdata.password}
             onChange={handleChange}
             placeholder="Enter Password"
-            />
-            </Form.Group>
+          />
+        </Form.Group>
+      <Button className="login_btn" variant="primary" type="submit">
+        {isLogin ? 'Login' : 'Register'}
+      </Button>
+      </div>
 
-            <Button variant="primary" type="submit">
-            {isLogin ? 'Login' : 'Register'}
-            </Button>
-        </Form>
-    )
+    </Form>
+    </>
+  )
 }
 
-
-// module.exports = Auth
 export default Auth

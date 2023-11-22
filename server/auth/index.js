@@ -36,7 +36,7 @@ async function authenticate({req, res}){
         console.log('data',data)
 
         // if verification is successful, retrieve user info based on the user_id from the token
-        const user = await User.findById(data.user.id).populate();
+        const user = await User.findById(data.user._id);
 
         // return the user data and the res Obj
         return {user: user, res: res};
