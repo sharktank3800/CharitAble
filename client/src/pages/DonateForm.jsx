@@ -47,7 +47,6 @@ function DonateForm() {
     setName(nameParam);
     setPic(picParam);
   }, [user, navigate, location.pathname]);
-  // console.log(location.search.replace("?name=", " ").replace('%20'," ").replace('%20'," ").replace('%20'," "))
   const showlocation =location.search.replace("?name=", " ").replace('%20'," ").replace('%20'," ").replace('%20'," ")
   console.log(names);
   
@@ -85,13 +84,8 @@ function DonateForm() {
     setError(null);
     setLoading(true);
     try {
-      // console.log('donation',donationData)
       const { data } = await makeDonation();
-      // Assuming you want to do something with the response from the mutation
-      // (e.g., update local state or navigate to another page)
-      // Add your logic here
-
-      // Clear the form data after successful donation
+      
       setDonationData({
         id:'',
         name: '',

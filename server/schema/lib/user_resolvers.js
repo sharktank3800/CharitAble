@@ -43,7 +43,7 @@ const user_resolvers = {
       }, 
 
       async login(_, args, context) {
-        console.log(args)
+        
         const { email, password } = args;
   
         const user = await User.findOne({ email });
@@ -71,20 +71,13 @@ const user_resolvers = {
           // create new donation with converted categoryIds
           const donation = await Donations.create(args);
           
-            // categoryIds.filter((categoryId) => categoryId !== null),
-            // user: context.user._id //assigning authenticated user ID
-          // converting category name to correspond with ObjectsId
+          
           
           const user = await User.findById(args.id)
-          // console.log(user)
+          
           user.donations.push(donation._id)
           await user.save()
-          // const categoryIds = await Promise.all(
-            // category.map(async(categoryName) => {
-              
-            //   return category ? category._id : null;
-            // })
-          // )
+          
           return donation;
         } catch (err) {
           throw new Error(err.message)
@@ -97,9 +90,9 @@ const user_resolvers = {
       },
       
       async showDonations(_, args){
-        console.log('shoargs',args)
+       
         const user = await User.findById(args.id).populate('donations')
-        console.log('showuser',user)
+        
 
         return user
       }
