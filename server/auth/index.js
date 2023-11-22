@@ -23,7 +23,7 @@ async function createToken(user_id){
 async function authenticate({req, res}){
     // rretrieve the token from the req cookies
     const token = req.cookies.token;
-   
+   console.log('this',token)
     // if there is no token available return the res Obj
     if(!token) return {res: res}
     

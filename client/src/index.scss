@@ -125,6 +125,25 @@ button {
     object-fit: contain;
   }
 
+  .dashboard-cards-container {
+    display: flex;
+    flex: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    justify-content: flex-start;
+
+    >* {
+        margin: 20px 20px;
+    }
+}
+
+.dashboard-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+
 .footer-p {
     color: #fff;
 }
@@ -162,3 +181,27 @@ button {
 .login_btn {
     margin-top: 10px;
 }
+
+
+@media (max-width: 768px) {
+    .search {
+      .search-button {
+        background-color: #9fafca;
+      }
+    }
+  
+    .links {
+      .button-bar {
+        .links-button {
+          background-color: #9fafca;
+        }
+      }
+    }
+  
+    .featured-container {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+  
+  }

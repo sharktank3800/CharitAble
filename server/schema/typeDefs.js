@@ -14,6 +14,7 @@ type Donations{
     description: String
     image: String
     username:String
+    website: String
     
 }
 
@@ -25,6 +26,7 @@ type User {
     createdAt: String
     updatedAt: String
     donations: [Donations]
+    token: String
 }
 
 type Query{
@@ -40,8 +42,9 @@ type Mutation {
         name: String!, 
         amount: Int!, 
         username:String!,
-        categories: [String]):Donations
-    logout: String
+        categories: [String],
+        image:String):Donations
+        logout: String
     showDonations(id:ID): User
 }
 `

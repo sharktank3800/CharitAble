@@ -8,17 +8,47 @@ import axios from 'axios'
 import { useState, useEffect } from 'react';
 import { useStore } from '../Store';
 import Cards from './Cards'
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { useMutation, gql } from '@apollo/client';
+
+const LOGOUT = gql`
+  mutation {
+    logout
+  }`
+
+
+// // Then, when you use this mutation:
+
+// // Call the logout function with the correct id
+// logout({ variables: { id: 'yourUserId' } });
+
 // import { Link } from 'react-router-dom';
 const initialFormData = {
   slugs: '',
-
+  
 }
 
 
 function Header() {
   const [formData, setFormData] = useState(initialFormData)
   const { user,setState } = useStore();
+  const navigate = useNavigate()
+ 
+  const [logoutUser] = useMutation(LOGOUT)
+
+  const logout = async () => {
+    
+
+    await logoutUser();
+
+    setState(oldState => ({
+      ...oldState,
+      user: null
+    }))
+    navigate('/')
+  }
+
+     
   // console.log('initial',formData)
   const handleChange = (e) => {
     setFormData({
@@ -50,7 +80,10 @@ function Header() {
       console.error(error);
     }
   };
-
+  const handleLogOut = async () =>{
+    await logout()
+    navigate('/')
+  }
   // handleSearch();
   // }, [formData]);
   return (
@@ -90,7 +123,7 @@ function Header() {
             {user ? (<>
             <NavLink to="/dashboard"> <Button variant="outline-success" className="links-button" >Dashboard</Button></NavLink>
             
-            <NavLink to="/login"> <Button variant="outline-success" className="links-button" >Logout</Button></NavLink>
+            <NavLink onClick={handleLogOut}> <Button variant="outline-success" className="links-button" >Logout</Button></NavLink>
             </>):(<>
             <NavLink to="/register"><Button variant="outline-success" className="links-button" >Register</Button></NavLink>
             <NavLink to="/login"> <Button variant="outline-success" className="links-button" >Login</Button></NavLink>

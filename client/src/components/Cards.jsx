@@ -60,7 +60,7 @@ function Cards() {
               {item.description}
             </Card.Text>
             <div className='button-container'>
-              <Link to={`/donateform?name=${encodeURIComponent(item.name)}`}> <Button variant="primary">Donate Here!</Button></Link>
+              <Link to={`/donateform?name=${encodeURIComponent(item.name)}&pic=${encodeURIComponent(item.coverImageUrl)}`}> <Button variant="primary">Donate Here!</Button></Link>
               <NavLink href={item.websiteUrl || 'https://colorlib.com/etc/404/colorlib-error-404-1/' || '/teapot'} target="_blank"><Button variant="primary">Learn more</Button></NavLink>
             </div>
           </Card.Body>
