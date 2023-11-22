@@ -1,5 +1,5 @@
 import { useStore } from "../Store";
-
+import { useEffect } from "react";
 
 
 function Search(){

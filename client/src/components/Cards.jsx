@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useStore } from '../Store';
 import { NavLink } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import DonateForm from '../pages/DonateForm';
+// import DonateForm from '../pages/DonateForm';
 import { Search } from './Search'
 
 function Cards() {
@@ -50,7 +50,7 @@ function Cards() {
     <div className="charity-cards">
       {searchContents.length ? searchContents.map((item, index) => (
         <Card key={index} style={{ width: '18rem' }}>
-          {console.log('item', item.description)}
+          
           <Card.Img variant="top" src={item.coverImageUrl || 'logo_gagogo.svg' || 'https://picsum.photos/300/300'}
             className={`charity-image ${!item.coverImageUrl && 'charity-image-logo'}`}
           />
@@ -60,7 +60,7 @@ function Cards() {
               {item.description}
             </Card.Text>
             <div className='button-container'>
-              <Link to='/donateform'> <Button variant="primary">Donate Here!</Button></Link>
+              <Link to={`/donateform?name=${encodeURIComponent(item.name)}`}> <Button variant="primary">Donate Here!</Button></Link>
               <NavLink href={item.websiteUrl || 'https://colorlib.com/etc/404/colorlib-error-404-1/' || '/teapot'} target="_blank"><Button variant="primary">Learn more</Button></NavLink>
             </div>
           </Card.Body>

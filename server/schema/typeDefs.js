@@ -32,16 +32,17 @@ type Query{
     category(name: String): [Donations]
 }
 
-type Mutation{
+type Mutation {
     register(email: String!, username: String!, password:String!):User
     login(email: String!, password:String!):User
-    createDonation(
+    createDonation (
         id:ID,
         name: String!, 
         amount: Int!, 
         username:String!,
         categories: [String]):Donations
     logout: String
+    showDonations(id:ID): User
 }
 `
 

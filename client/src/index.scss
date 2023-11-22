@@ -7,6 +7,9 @@
 .text-center {
     text-align: center;
 }
+button {
+    background-color: #9fafca;
+}
 
 .header {
     height: 60px;
@@ -30,8 +33,7 @@
     margin-left: auto;
 
     .search-button {
-        border-color: #fff;
-        background-color: #000;
+        background-color: #fff;
     }
 
     @media (min-width: 720px) and (max-width: 1440px) {
@@ -53,8 +55,7 @@
         }
 
         .links-button {
-            border-color: #fff;
-            background-color: #000;
+            background-color: #fff;
         }
     }
 
@@ -71,11 +72,11 @@
 }
 
 .card-body {
+    background-color: rgb(151, 193, 221);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 0px !important;
-    
 }
 
 .card_body_container {
@@ -84,7 +85,7 @@
 } 
 
 .popa {
-    margin-right: 20px;
+    margin:0 10px;
 }
 
 .feature-image {
@@ -144,4 +145,20 @@
     margin-left: auto;
 }
 
+.form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
+
+.login_btn {
+    margin-top: 10px;
+}

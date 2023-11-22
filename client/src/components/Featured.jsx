@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import DonateForm from '../pages/DonateForm';
+
 import { useEffect, useState } from 'react';
 import { useStore } from '../Store';
 import axios from 'axios';
@@ -59,7 +59,7 @@ function Featured({ data }) {
 
   return (
     <div className="featured-container ">
-      {/* {console.log(featuredContents)} */}
+      
       {featuredContents.slice(0, 5).map((item, index) => (
         <Card key={index} style={{ width: '25rem' }} className="card-body popa">
 
@@ -72,7 +72,7 @@ function Featured({ data }) {
 
               <div className="button-container">
                 {/* <NavLink path='/donateform' element={<DonateForm/>} ><Button variant="primary" className="feature-button">Donate Here!</Button></NavLink> */}
-                <Link to='/donateform'> <Button variant="primary" >Donate Here!</Button></Link>
+                <Link to={`/donateform?name=${encodeURIComponent(item.name)}`}> <Button variant="primary">Donate Here!</Button></Link>
                 <NavLink href={item.websiteUrl || '/teapot' || 'https://colorlib.com/etc/404/colorlib-error-404-1/'} target="_blank"><Button variant="primary">Learn more</Button></NavLink>
               </div>
             </div>
