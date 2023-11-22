@@ -12,29 +12,27 @@ import DonateForm from './pages/DonateForm';
 import Footer from './components/Footer'
 import Auth from './pages/Auth'
 
-
-
 import { useStore } from './Store'
 import Landing from './pages/Landing';
-
-
 
 const AUTHENTICATE = gql`
 query{
   authenticate{
     _id
     email
+    username
+
   }
 }
 `
- 
-
-function App() {
-    const {setState} = useStore()
+ function App() {
+    const {user, setState} = useStore()
     const {loading, error, data:userData} = useQuery(AUTHENTICATE)
-
     
     useEffect(() => {
+      const testing = async (e) => {
+  
+        // console.log(userData.authenticate)
       const storedToken = localStorage.getItem('token');
       if (storedToken) {
         // If a token exists in localStorage, update the state with the token
@@ -43,12 +41,13 @@ function App() {
           token: storedToken,
         }));
       }
-    }, [setState]);
-
+    }
+    testing()
+  }, [userData]);
   return (
     <>
       <Header />
-      {/* <Featured /> */}
+      
       
         <Routes>
           <Route path="/" element={<Landing/>} />
@@ -58,7 +57,7 @@ function App() {
           <Route path='/register' element={<Auth isLogin={false}/>}/>
         </Routes>
       
-      {/* <Card />  */}
+      
       <Footer />
 
     </>

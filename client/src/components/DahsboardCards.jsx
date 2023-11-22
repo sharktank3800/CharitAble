@@ -22,7 +22,7 @@ function DashboardCards( {donationObj}) {
                   <ListGroup.Item>Category 2: {donation.categories[1]}</ListGroup.Item>
                 </ListGroup>
                 <Card.Body>
-                  {/* <Card.Link href="#">Card Link</Card.Link> */}
+                  
                 </Card.Body>
               </Card>
             </div>

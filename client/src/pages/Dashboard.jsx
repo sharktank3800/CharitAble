@@ -35,8 +35,6 @@ function Dashboard(){
     
         })
 
-        // console.log("inititemstore",itemstore)
-        // console.log("dashboard",user)
         useEffect(()=>{
     
             const showdonations = async ( )=>{
@@ -44,11 +42,7 @@ function Dashboard(){
                 const {data} = await showDonation() 
                 const donationObj = data.showDonations.donations
                 console.log("userdata",data.showDonations.donations)
-                // setNewDonationData({
-                //     ...newDonationData,
-                //     [data.name]: data.value
-                //   });
-                //   console.log("finitemstore",newDonationData)
+                
                 setState((oldState) => {
                     return {
                       ...oldState,
@@ -59,8 +53,7 @@ function Dashboard(){
             showdonations()
         },[])
     }
-    // showDonation()
-    // 
+    
     console.log(itemstore);
     return (
         <div>

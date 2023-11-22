@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import { useEffect, useState } from 'react';
 import { useStore } from '../Store';
 import axios from 'axios';
-// import { NavLink } from 'react-router-dom';
+
 import { NavLink } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -37,7 +37,7 @@ function Featured({ data }) {
         });
 
         const filteredData = response.data.nonprofits.map(item => slugs.includes(item.slug));
-        // console.log(response.data.nonprofits);
+        
         // Update the state with the filtered data
       } catch (error) {
         console.error('Error in handleSearch:', error);
@@ -46,17 +46,7 @@ function Featured({ data }) {
 
     handleSearch();
   }, [setState])
-  // const id = setInterval(handleSearch, 3000000);
-  // setTimerId(id);
-
-  // return () => {
-  //   if (timerId) {
-  //     // handleSearch()
-  //     clearInterval(timerId)
-  //   };
-  // }
-  // }, [setState, timerId])
-
+  
   return (
     <div className="featured-container ">
       
@@ -71,7 +61,6 @@ function Featured({ data }) {
 
 
               <div className="button-container">
-                {/* <NavLink path='/donateform' element={<DonateForm/>} ><Button variant="primary" className="feature-button">Donate Here!</Button></NavLink> */}
                 <Link to={`/donateform?name=${encodeURIComponent(item.name)}`}> <Button variant="primary">Donate Here!</Button></Link>
                 <NavLink href={item.websiteUrl || '/teapot' || 'https://colorlib.com/etc/404/colorlib-error-404-1/'} target="_blank"><Button variant="primary">Learn more</Button></NavLink>
               </div>

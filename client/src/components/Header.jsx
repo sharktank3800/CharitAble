@@ -17,12 +17,7 @@ const LOGOUT = gql`
   }`
 
 
-// // Then, when you use this mutation:
 
-// // Call the logout function with the correct id
-// logout({ variables: { id: 'yourUserId' } });
-
-// import { Link } from 'react-router-dom';
 const initialFormData = {
   slugs: '',
   
@@ -49,7 +44,7 @@ function Header() {
   }
 
      
-  // console.log('initial',formData)
+  
   const handleChange = (e) => {
     setFormData({
       [e.target.name]: e.target.value
@@ -130,7 +125,7 @@ function Header() {
             </>)}
           </Nav>
         </div>
-        {/* <Cards handleSearch={handleSearch}/> */}
+        
       </Container>
     </Navbar>
   );
