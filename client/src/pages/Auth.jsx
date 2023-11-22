@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import { useMutation, gql } from "@apollo/client";
 
 import Button from "react-bootstrap/esm/Button";
@@ -52,17 +53,33 @@ function Auth({ isLogin }) {
   });
 
   const handleAuthSuccess = (data) => {
-    console.log('authdata',data)
     const resolverName = isLogin ? 'login' : 'register';
+    const userData = data[resolverName];
     setState(oldState => ({
       ...oldState,
-      user: data[resolverName],
-      token: data[resolverName]?.token || ''
+      user: userData,
+      token: userData?.token || ''
     }));
-    localStorage.setItem('token', data[resolverName]?.token || ''); // Storing the token in local storage
+    // Store user data and token in local storage
+    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('token', userData?.token || '');
     navigate('/');
   };
-
+  
+  useEffect(() => {
+    // Load the user data and token from local storage
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = localStorage.getItem('token');
+  
+    if (token && user) {
+      // If a token and user data exist, use them to authenticate the user
+      setState(oldState => ({
+        ...oldState,
+        user,
+        token
+      }));
+    }
+  }, []);
   const handleChange = (e) => {
     setFormData({
       ...formdata,
